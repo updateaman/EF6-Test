@@ -8,9 +8,9 @@ namespace CoreWebApplication.Controllers
     {
         private readonly UserDbContext _context;
 
-        public HomeController()
+        public HomeController(UserDbContext context)
         {
-            _context = new UserDbContext();
+            _context = context;
         }
 
         [HttpPost]
@@ -27,7 +27,7 @@ namespace CoreWebApplication.Controllers
 
             _context.Update(userProfile);
             await _context.SaveChangesAsync();
-            
+
             return Ok();
         }
     }
