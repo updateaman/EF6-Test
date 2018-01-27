@@ -15,7 +15,20 @@ namespace CoreWebApplication.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id,
+        public async Task<IActionResult> Add([FromBody]
+            [Bind(
+                "Id,FirstName,LastName,BirthDate,ProfilePhoto,Interests,AboutMe,Address")]
+            UserProfile userProfile)
+        {
+            _context.Update(userProfile);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([FromRoute]string id, [FromBody]
             [Bind(
                 "FirstName,LastName,BirthDate,ProfilePhoto,Interests,AboutMe,Address")]
             UserProfile userProfile)
